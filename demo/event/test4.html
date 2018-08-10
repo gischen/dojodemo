@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+    //Notice that we also required the dojo/query module, although we don't use it directly. This is because dojo/on needs a selector engine exposed by dojo/query in order to be able to match selectors used for event delegation. This is not pulled in automatically by dojo/on in order to reduce its footprint and avoid "penalizing" developers for a feature that might not always be used.
+    require(["dojo/on", "dojo/dom", "dojo/query", "dojo/domReady!"],
+    function(on, dom){
+
+        var myObject = {
+            id: "myObject",
+            onClick: function(evt){
+                alert("The scope of this handler is " + this.id);
+            }
+        };
+        var div = dom.byId("parentDiv");
+        on(div, ".clickMe:click", myObject.onClick);
+
+});
+</script>
+
+<div id="parentDiv">
+    <button id="button1" class="clickMe">Click me</button>
+    <button id="button2" class="clickMe">Click me also</button>
+    <button id="button3" class="clickMe">Click me too</button>
+    <button id="button4" class="clickMe">Please click me</button>
+</div>
+
+</body>
+</html>

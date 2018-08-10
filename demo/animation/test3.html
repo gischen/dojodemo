@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+	require(["dojo/_base/fx", "dojo/dom", "dojo/fx/easing", "dojo/window", 
+             "dojo/on", "dojo/domReady!"], 
+        function(baseFx, dom, easing, win, on) {
+
+            var dropButton = dom.byId("dropButton");
+            var ariseSirButton = dom.byId("ariseSirButton");
+            var anim8target = dom.byId("anim8target");
+
+            // Set up a couple of click handlers to run our animations
+            on(dropButton, "click", function(evt){
+                // get the dimensions of our viewport
+                var viewport = win.getBox(win.doc);
+                console.log(viewport)
+                baseFx.animateProperty({
+                    // use the bounceOut easing routine to have the box accelerate
+                    // and then bounce back a little before stopping
+                    easing: easing.bounceOut,
+                    duration: 5000,
+                    node: anim8target,
+                    properties: {
+                        // calculate the 'floor'
+                        // and subtract the height of the node to get the distance from top we need
+                        top: { start: 0, end:viewport.h - anim8target.offsetHeight }
+                    }
+                }).play();
+            });
+            on(ariseSirButton, "click", function(evt){
+                console.log('ariseSirButton click!')
+                baseFx.animateProperty({
+                    node: anim8target,
+                    properties: { top: 100 }
+                }).play();
+            });
+        });
+</script>
+
+<button id="dropButton">Grow Borders</button>
+<button id="ariseSirButton">Shrink Borders</button>
+
+<div id="anim8target" class="box" style="border-style:outset">
+    <div class="innerBox">A box</div>
+</div>
+</body>
+</html>

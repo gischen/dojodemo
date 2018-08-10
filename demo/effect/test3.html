@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+     require(["dojo/fx", "dojo/on", "dojo/dom", "dojo/domReady!"], 
+
+        function(fx, on, dom) {
+        var slideAwayButton = dom.byId("slideAwayButton"),
+            slideBackButton = dom.byId("slideBackButton"),
+            slideTarget = dom.byId("slideTarget");
+
+        on(slideAwayButton, "click", function(evt){
+            fx.slideTo({ node: slideTarget, left: "200", top: "200" }).play();
+        });
+        on(slideBackButton, "click", function(evt){
+            fx.slideTo({ node: slideTarget, left: "0", top: "100" }).play();
+        });
+    });
+</script>
+
+<button id="slideAwayButton">Slide block away</button>
+<button id="slideBackButton">Slide block back</button>
+
+<div id="slideTarget" class="red-block slide">
+    A red block
+</div>
+
+</body>
+</html>

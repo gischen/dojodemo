@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+     //animation 对象状态的监控及回掉
+     require(["dojo/fx", "dojo/on", "dojo/dom-style", "dojo/dom", "dojo/domReady!"], function(fx, on, style, dom) {
+
+        var slideAwayButton = dom.byId("slideAwayButton"),
+            slideBackButton = dom.byId("slideBackButton"),
+            slideTarget = dom.byId("slideTarget");
+
+            on(slideAwayButton, "click", function(evt){
+                // Note that we're specifying the beforeBegin as a property of the animation
+                // rather than using connect. This ensures that our beforeBegin handler
+                // executes before any others.
+                var anim = fx.slideTo({
+                    node: slideTarget,
+                    left: "200",
+                    top: "200",
+                    beforeBegin: function(){
+
+                        console.warn("slide target is: ", slideTarget);
+
+                        style.set(slideTarget, {
+                            left: "0px",
+                            top: "100px"
+                        });
+                    }
+                });
+
+                // We could have also specified onEnd above alongside beforeBegin,
+                // but it's just as easy to connect like so
+                on(anim, "End", function(){
+                    style.set(slideTarget, {
+                        backgroundColor: "blue"
+                    });
+                }, true);
+
+                // Don't forget to actually start the animation!
+                anim.play();
+            });
+
+            on(slideBackButton, "click", function(evt){
+                var anim = fx.slideTo({
+                    node: slideTarget,
+                    left: "0",
+                    top: "100",
+                    beforeBegin: function(){
+
+                        style.set(slideTarget, {
+                            left: "200px",
+                            top: "200px"
+                        });
+                    }
+                });
+
+                on(anim, "End", function(){
+                    style.set(slideTarget, {
+                        backgroundColor: "red"
+                    });
+                }, true);
+
+                anim.play();
+            });
+    });
+</script>
+
+<button id="slideAwayButton">Slide block away</button>
+<button id="slideBackButton">Slide block back</button>
+
+<div id="slideTarget" class="red-block slide">
+    A red block
+</div>
+
+</body>
+</html>

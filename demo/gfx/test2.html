@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+	require(["dojox/gfx", "dojox/gfx/fx","dojo/domReady!"], function(gfx,gfxFx) {
+        var surface = gfx.createSurface("surfaceElement", 800, 800);
+        // Create a circle, a dojox/gfx.fx instance, play it immediately
+        var circle = surface.createCircle({ cx: 50, cy: 50, rx: 50, r: 25 })
+            .setFill("blue");
+        gfxFx.animateFill({
+            shape: circle,
+            duration: 5000,
+            color: { start: "blue", end: "green" }
+        }).play();
+
+        // Create a rectangle, animate its stroke
+        var rectangle = surface.createRect({ x: 100, y: 50, width: 200, height: 100 })
+            .setStroke("yellow");
+        gfxFx.animateStroke({
+            shape: rectangle,
+            duration: 5000,
+            color: { start: "yellow", end: "pink" },
+            width: { end: 15 },
+            join:  { values: ["miter", "bevel", "round"] }
+        }).play();
+
+        // Create text, animate it
+        var text = surface.createText({
+            x: 64, y: 220, text: "Vector Graphics Rock!", align: "start"
+        }).setFont({ family: "Arial", size: "20pt", weight: "bold" })
+            .setFill("red");
+        gfxFx.animateFont({
+            shape: text,
+            duration: 5000,
+            variant: { values: ["normal", "small-caps"] },
+            size:  { end: 10, units: "pt" },
+            color: "green"
+        }).play();
+
+    });
+</script>
+
+<div id="surfaceElement" style="width: 1000px;height: 1000px;border:1px;"></div>
+
+</body>
+</html>

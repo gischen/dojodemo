@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+	require(["dojox/gfx", "dojo/domReady!"], function(gfx) {
+        var surface = gfx.createSurface("surfaceElement", 800, 800);
+        // Create a rectangle
+        surface.createRect({ x: 100, y: 50, width: 200, height: 100 })
+            .setFill("yellow")
+            .setStroke("blue");
+
+        // Add a circle
+        surface.createCircle({ cx: 100, cy: 300, r:50 })
+            .setFill("green")
+            .setStroke("pink");
+
+        // Now an ellipse
+        surface.createEllipse({ cx: 300, cy: 200, rx:50, r:25 })
+            .setFill("#fff")
+            .setStroke("#999");
+
+        // And a line
+        surface.createLine({ x1: 10, y1: 50, x2:400, y2:400 })
+            .setStroke("green");
+
+        // How about a polyline?
+        surface.createPolyline([
+            {x: 250, y: 250},
+            {x: 300, y: 300},
+            {x: 250, y: 350},
+            {x: 200, y: 300},
+            {x: 110, y: 250}
+        ]).setStroke("blue");
+
+        // Add in an image
+        surface.createImage({
+            x:100, y:300, width: 123, height: 56, src: "../images/logo.png"
+        });
+
+        // With some text
+        surface.createText({ x: 64, y: 220, text: "Vector Graphics Rock!", align: "start" })
+            .setFont({ family: "Arial", size: "20pt", weight: "bold" }) //set font
+            .setFill("blue");
+
+        // And an advanced textpath
+        var textShape = surface.createTextPath({ text: "TextPath!" })
+            .moveTo(125, 70)
+            .lineTo(285, 20)
+            .setFont({ family: "Verdana", size: "2em" })
+            .setFill("black");
+
+        // And a simple path
+        surface.createPath("m100 100 100 0 0 100c0 50-50 50-100 0s-50-100 0-100z")
+            .setStroke("black");
+
+
+            // Create a circle with a set "blue" color
+        surface.createCircle({ cx: 50, cy: 50, rx:50, r:25 }).setFill("blue");
+
+        // Crate a circle with a set hex color
+        surface.createCircle({ cx: 300, cy: 300, rx:50, r:25 }).setFill("#f00");
+
+        // Create a circle with a linear gradient
+        surface.createRect({ x: 180, y: 40, width: 200, height: 100 }).
+        setFill({ type:"linear",
+            x1:0,
+            y1:0,   //x: 0=&gt;0, consistent gradient horizontally
+            x2:0,   //y: 0=&gt;420, changing gradient vertically
+            y2:420,
+            colors: [
+                { offset: 0,   color: "#003b80" },
+                { offset: 0.5, color: "#0072e5" },
+                { offset: 1,   color: "#4ea1fc" }
+            ]
+        });
+
+        // Create a circle with a radial gradient
+        surface.createEllipse({
+            cx: 120,
+            cy: 260,
+            rx: 100,
+            ry: 100
+        }).setFill({
+            type: "radial",
+            cx: 150,
+            cy: 200,
+            colors: [
+                { offset: 0,   color: "#4ea1fc" },
+                { offset: 0.5, color: "#0072e5" },
+                { offset: 1,   color: "#003b80" }
+            ]
+        });
+
+        // Create a rectangle with a basic black border
+        surface.createRect({x: 100, y: 50, width: 200, height: 100 }).setStroke("#000");
+
+        // Create a circle with a 3-pixel dotted red border
+        surface.createCircle({ cx: 300, cy: 300, rx: 50, r: 25 }).setStroke({
+            style: "Dot", width: 3, cap: "round", color: "#f00"
+        });
+
+        // Create a circle with a 3-pixel dotted red border
+        surface.createCircle({ cx: 150, cy: 250, rx: 100, r: 50 }).setStroke({
+            style: "Dash", width: 3, cap: "butt", color: "#00f"
+        });
+
+    });
+</script>
+
+<div id="surfaceElement" style="width: 1000px;height: 1000px;border:1px;"></div>
+
+</body>
+</html>

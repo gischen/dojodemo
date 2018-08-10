@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<script>
+    // Instead of using data-dojo-config, we're creating a dojoConfig
+    // object *before* we load dojo.js; they're functionally identical,
+    // it's just easier to read this approach with a larger configuration.
+    var dojoConfig = {
+        async: true,
+        baseUrl: '../..', //注意此处的相对路径
+        packages: [
+            'dojo',
+            'dijit',
+            'dojox',
+        ]
+    };
+
+</script>
+<!-- load Dojo -->
+<script src="../../dojo/dojo.js"></script>
+<script>
+	require(["dojox/gfx", "dojo/on","dojo/domReady!"], function(gfx,on) {
+        var surface = gfx.createSurface("surfaceElement", 800, 800);
+        // Create a circle, a dojox/gfx.fx instance, play it immediately
+        var circle = surface.createCircle({ cx: 50, cy: 50, rx: 50, r: 25 })
+            .setFill("blue");
+            // Add a click event to the circle to change its fill!
+        circle.on("click", function(e) {
+            circle.setFill("red");
+        });        
+
+    });
+</script>
+
+<div id="surfaceElement" style="width: 1000px;height: 1000px;border:1px;"></div>
+
+</body>
+</html>

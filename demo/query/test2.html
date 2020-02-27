@@ -34,8 +34,14 @@
 <script src="../../dojo/dojo.js"></script>
 <script>
 	// Wait for the DOM to be ready before working with it
-require(["dojo/query", "dojo/dom-class", "dojo/domReady!"],
-    function(query, domClass) {
+require([
+        "dojo/query",
+        "dojo/dom-class",
+        "dojo/domReady!"],
+    function(
+        query,
+        domClass
+    ) {
 
         query(".odd").forEach(function(node, index, nodelist){
             // for each node in the array returned by query,

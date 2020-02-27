@@ -42,7 +42,12 @@
 <!-- load Dojo -->
 <script src="../../dojo/dojo.js"></script>
 <script>
-	require(["dojo/query", "dojo/domReady!"], function(query) {
+	require([
+			"dojo/query",
+			"dojo/domReady!"],
+			function(
+					query
+			) {
         query(".hookUp").on("click", function(){
             alert("This button is hooked up!");
         });

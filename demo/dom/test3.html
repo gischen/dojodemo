@@ -25,8 +25,17 @@
 <!-- load Dojo -->
 <script src="../../dojo/dojo.js"></script>
 <script>
-	require(["dojo/dom", "dojo/dom-construct", "dojo/on", "dojo/domReady!"],
-    function(dom, domConstruct, on){
+	require([
+	        "dojo/dom",
+            "dojo/dom-construct",
+            "dojo/on",
+            "dojo/domReady!"
+        ],
+    function(
+            dom,
+            domConstruct,
+            on)
+    {
 
         function moveFirst(){
             var list = dom.byId("list"),

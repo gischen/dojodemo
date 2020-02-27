@@ -25,7 +25,13 @@
 <!-- load Dojo -->
 <script src="../../dojo/dojo.js"></script>
 <script>
-	require(["dojo/query","dojo/dom","dojo/domReady!"], function(query,dom) {
+	require([
+	        "dojo/query",
+            "dojo/dom",
+            "dojo/domReady!"
+        ], function(
+            query,
+            dom) {
 
                 var list = query("#list")[0];
                 console.log(list)

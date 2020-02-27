@@ -43,8 +43,13 @@
 <script src="../../dojo/dojo.js"></script>
 <script>
 	// Wait for the DOM to be ready before working with it
-require(["dojo/query", "dojo/NodeList-dom", "dojo/domReady!"],
-    function(query) {
+require([
+        "dojo/query",
+        "dojo/NodeList-dom",
+        "dojo/domReady!"],
+    function(
+        query
+    ) {
 
         query(".odd").addClass("red");
         // Add "blue" to the className of each node matching
